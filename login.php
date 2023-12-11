@@ -15,7 +15,7 @@
     <div class="wrapper">
       <div class="title"><span>Login Form</span></div>
       <h1></h1>
-      <form action="" method="POST">
+      <form method='POST' action="Controller/controller.php">
         <div class="row">
           <i class="fas fa-user"></i>
           <input type="text" name="email" placeholder="Email or Phone" required>
@@ -26,10 +26,10 @@
         </div>
         <div class="pass"><a href="#">Forgot password?</a></div>
         <div class="row button">
-          <input type="submit" value="Login">
+          <input type="submit" name="login" value="Login">
         </div>
         <span style="color:red;"></span>
-        <div class="signup-link">Not a member? <a href="/register.php">Signup now</a></div>
+        <div class="signup-link">Not a member? <a href="register.php">Signup now</a></div>
       </form>
     </div>
   </div>

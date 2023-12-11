@@ -1,3 +1,7 @@
+<?php
+session_start();
+	require "Class/User.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,8 +21,6 @@
 
 <body>
 	<header>
-
-
 		<nav class="navbar navbar-expand-md navbar-dark">
 			<div class="container">
 				<!-- Brand/logo -->
@@ -54,9 +56,17 @@
 						<span class="nav-item active">
 							<a class="nav-link" href="#">EN</a>
 						</span>
+						<?php 
+						if(!isset($_SESSION['roleUser'])){
+						?>
 						<li class="nav-item">
 							<a class="nav-link" href="login.php">Login</a>
 						</li>
+						<?php }else{ ?>
+						<li class="nav-item">
+							<a class="nav-link" href="Controller/controller.php?logout=ok">logout</a>
+						</li>
+						<?php } ?>
 					</ul>
 				</div>
 			</div>

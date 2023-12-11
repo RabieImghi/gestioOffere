@@ -1,3 +1,7 @@
+<?php
+session_start();
+require "../Class/User";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -93,7 +97,14 @@
                             <div class="dropdown-menu dropdown-menu-end position-absolute">
                                 <a class="dropdown-item" href="#">Profile</a>
                                 <a class="dropdown-item" href="#">Account Setting</a>
-                                <a class="dropdown-item" href="/PeoplePerTask/project/pages/index.html">Log out</a>
+                                <?php 
+                                if(!isset($_SESSION['roleUser'])){
+                                ?>
+                                <a class="dropdown-item" href="../login.php">Login</a>
+                                <?php }else{ ?>
+                                <a class="dropdown-item" href="../Controller/controller.php?logout=ok">Log out</a>
+                                <?php } ?>
+                                
                             </div>
                         </li>
                     </ul>
