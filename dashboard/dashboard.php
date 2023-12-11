@@ -1,6 +1,8 @@
 <?php
 session_start();
-require "../Class/User";
+require_once "../Class/User.php";
+require_once "../Class/Job.php";
+$jobs = new Job();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -119,7 +121,12 @@ require "../Class/User";
                                     <div>
                                         <p class="mb-0">Offres</p>
                                         <div class="mt-4">
-                                            <h3><strong>18</strong></h3>
+                                            <h3><strong>
+                                                <?php
+                                                $res=$jobs->JobCout();
+                                                echo $res["totalJobs"];
+                                                ?>
+                                            </strong></h3>
                                             
                                         </div>
                                     </div>
@@ -138,12 +145,17 @@ require "../Class/User";
                                     <div>
                                         <p class="mb-0">Active Offres</p>
                                         <div class="mt-4">
-                                            <h3><strong>132</strong></h3>
+                                            <h3><strong>
+                                            <?php
+                                                $res=$jobs->JobCoutActiveInactive(1);
+                                                echo $res["totalJobsActInact"];
+                                                ?>
+                                            </strong></h3>
                                            
                                         </div>
                                     </div>
                                     <div class="">
-                                        <img src="img/project-icon-2.svg" alt="icon">
+                                        <img src="img/project-icon-1.svg" alt="icon">
                                     </div>
                                 </div>
 
@@ -155,33 +167,44 @@ require "../Class/User";
                             <div class="card-body p-4">
                                 <div class="d-flex justify-content-between px-md-1">
                                     <div>
-                                        <p class="mb-0">Nombre visiteurs</p>
+                                        <p class="mb-0">InaActive Offres</p>
                                         <div class="mt-4">
-                                            <h3><strong>12</strong></h3>
-                                            <!-- <p><strong></strong> Completed</p> -->
+                                            <h3><strong>
+                                            <?php
+                                                $res=$jobs->JobCoutActiveInactive(0);
+                                                echo $res["totalJobsActInact"];
+                                                ?>
+                                            </strong></h3>
+                                           
                                         </div>
                                     </div>
                                     <div class="">
-                                        <img src="img/project-icon-3.svg" alt="icon">
+                                        <img src="img/project-icon-1.svg" alt="icon">
                                     </div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-xl-3 col-sm-6 col-12 mb-4">
                         <div class="card">
                             <div class="card-body p-4">
                                 <div class="d-flex justify-content-between px-md-1">
                                     <div>
-                                        <p class="mb-0">Offres approuver</p>
+                                        <p class="mb-0">Aprouve Offres</p>
                                         <div class="mt-4">
-                                            <h3><strong>76%</strong></h3>
-                                            <p><strong>57%</strong> Completed</p>
+                                            <h3><strong>
+                                            <?php
+                                                $res=$jobs->Jobapprove(1);
+                                                echo $res["Jobapprove"];
+                                                ?>
+                                            </strong></h3>
+                                           
                                         </div>
                                     </div>
                                     <div class="">
-                                        <img src="img/project-icon-4.svg" alt="icon">
+                                    <img src="img/project-icon-4.svg" alt="icon">
                                     </div>
                                 </div>
 
