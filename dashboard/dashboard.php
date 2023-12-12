@@ -43,7 +43,7 @@ $jobs = new Job();
                         <a href="contact.php" class="sidebar_link"><img src="img/agent.svg" alt="icon">Contact</a>
                     </li>
                     <li class="sidebar_item">
-                        <a href="#" class="sidebar_link"><img src="img/articles.svg" alt="icon">Articles</a>
+                        <a href="offre.php" class="sidebar_link"><img src="img/articles.svg" alt="icon">Offre To Apply</a>
                     </li>
 
                 </ul>

@@ -1,17 +1,31 @@
 <?php
 session_start();
-	require "Class/User.php";
+require "Class/User.php";
+require "Class/Job.php";
+if(isset($_SESSION['roleUser']) && $_SESSION['roleUser']==1){
+	header("locaton:dashboard/dashboard.php");
+}
+$jobs=new Job();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
+<script>
+	Swal.fire({
+  title: 'Error!',
+  text: 'Do you want to continue',
+  icon: 'error',
+  confirmButtonText: 'Cool'
+})
+</script>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>
 		JobEase
 	</title>
-
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
+	
 	<link rel="stylesheet" href="styles/style.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -72,10 +86,6 @@ session_start();
 			</div>
 		</nav>
 	</header>
-
-
-
-
 	<section action="#" method="get" class="search">
 		<h2>Find Your Dream Job</h2>
 		<form class="form-inline">
@@ -98,61 +108,90 @@ session_start();
 	<section class="light">
 		<h2 class="text-center py-3">Latest Job Listings</h2>
 		<div class="container py-2">
-
+			<?php
+			$listJobs = $jobs->GetJobs(1);
+			foreach($listJobs as $job){
+			?>
 			<article class="postcard light green">
 				<a class="postcard__img_link" href="#">
 					<img class="postcard__img" src="https://picsum.photos/300/300" alt="Image Title" />
 				</a>
 				<div class="postcard__text t-dark">
-					<h3 class="postcard__title green"><a href="#">Experienced Web Developer in Python .</a></h3>
+					<h3 class="postcard__title green"><a href="#"><?=$job["title"]?></a></h3>
 					<div class="postcard__subtitle small">
 						<time datetime="2020-05-25 12:00:00">
 							<i class="fas fa-calendar-alt mr-2"></i>Mon, May 26th 2023
 						</time>
 					</div>
 					<div class="postcard__bar"></div>
-					<div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim,!</div>
+					<div class="postcard__preview-txt"><?=$job["description"]?></div>
 					<ul class="postcard__tagbox">
-						<li class="tag__item"><i class="fas fa-tag mr-2"></i>Maroc</li>
-						<li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+						<li class="tag__item">Enreprise : <?=$job["entreprise"]?></li>
+						<li class="tag__item">Location : <?=$job["location"]?></li>
 						<li class="tag__item play green">
-							<a href="#"><i class="fas fa-play mr-2"></i>APPLY NOW</a>
+							<?php
+							if($job["approve"]==1){
+								echo "<span style='color:red'>Already aprouved</span>";
+							}else{
+								if(isset($_SESSION['idUser'])){
+							?>
+								<form >
+									<button type='button' name='applyOffre' id='applyOffre<?=$job['jobID']?>' onclick="addOffer(<?=$job['jobID']?>)" value='<?=$_SESSION['idUser']?>/<?=$job["jobID"]?>' class="btn btn-success">Add Offer</button>   
+								</form>    
+								
+								<?php
+								}else{
+								?>       
+								<a href="login.php" class="btn btn-success">Add Offer</a>
+								<?php } ?>
+							<?php
+							}
+							?>
+							
 						</li>
 					</ul>
 				</div>
 			</article>
-			<article class="postcard light yellow">
-				<a class="postcard__img_link" href="#">
-					<img class="postcard__img" src="https://picsum.photos/300/300" alt="Image Title" />
-				</a>
-				<div class="postcard__text t-dark">
-					<h3 class="postcard__title yellow"><a href="#">Web Designer / Developer</a></h3>
-					<div class="postcard__subtitle small">
-						<time datetime="2020-05-25 12:00:00">
-							<i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2023
-						</time>
-					</div>
-					<div class="postcard__bar"></div>
-					<div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim,!</div>
-					<ul class="postcard__tagbox">
-						<li class="tag__item"><i class="fas fa-tag mr-2"></i>France</li>
-						<li class="tag__item"><i class="fas fa-clock mr-2"></i> 3 mins.</li>
-						<li class="tag__item play yellow">
-							<a href="#"><i class="fas fa-play mr-2"></i>APPLY NOW</a>
-						</li>
-					</ul>
-				</div>
-			</article>
+			<?php
+			}
+			?>
 		</div>
 	</section>
-
-	
-
-
+	<script>
+		function addOffer(i){
+			var jobid = document.getElementById('applyOffre'+i);
+			var xml = new XMLHttpRequest();
+			xml.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					// alert(xml.responseText)
+					if(xml.responseText=="ok"){
+						Swal.fire({
+							position: "top-end",
+							icon: "success",
+							title: "You have Apply this Offer with Succes",
+							showConfirmButton: false,
+							timer: 1500
+						});
+					}else{
+						Swal.fire({
+							icon: "error",
+							title: "Oops...",
+							text: "Errore ! You have Already Apply this Offer",
+						});
+					}
+					
+				}
+			};
+			let url = "Controller/controller.php?applyOffre="+jobid.value;
+			xml.open("GET", url, true);
+			xml.send();
+		}
+	</script>   
 	<footer>
 		<p>© 2023 JobEase </p>
 	</footer>
 </body>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

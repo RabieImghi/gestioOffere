@@ -2,8 +2,10 @@
 session_start();
 require_once "../Class/User.php";
 require_once "../Class/Job.php";
+require_once "../Class/ApplyOnline.php";
 $user = new User();
 $jobs = new Job();
+$ApplyOnline = new ApplyOnline();
 if(isset($_POST["registre"])){
     extract($_POST);
     $roleuserID=2;
@@ -13,6 +15,7 @@ if(isset($_POST["registre"])){
 if(isset($_POST["login"])){
     extract($_POST);
     $result=$user->Login($email,$password);
+    $_SESSION['idUser']=$result['userID'];
     $_SESSION['roleUser']=$result['roleuserID'];
     if($_SESSION['roleUser']==1) header("location: ../dashboard/dashboard.php");
     if($_SESSION['roleUser']==2) header("location: ../index.php");
@@ -22,7 +25,6 @@ if(isset($_GET['deletUser'])){
     $result = $user->DeletUser($id_user);
     if($result) header('location:../dashboard/candidat.php');
 }
-
 if(isset($_POST['addOffer'])){
     extract($_POST);
     $result = $jobs->AddJobs($title,$description,$entreprise,$location,$IsActive,$approve);
@@ -48,4 +50,16 @@ if(isset($_POST['updateJobs'])){
 if(isset($_GET['logout'])){
     session_destroy();
     header("location: ../index.php");
+}
+if(isset($_GET['applyOffre'])){
+    $Job=$_GET['applyOffre'];
+    $JobOffer = explode("/",$Job);
+    $idUser=$JobOffer[0];
+    $idJob=$JobOffer[1];
+    $res = $ApplyOnline->applyOffre($idJob,$idUser);
+    if($res) echo "ok";
+    else echo "non";
+
+    // if($res) echo "You have Apply this Offer with Succes";
+    // else echo "Errore ! You have Already Apply this Offer";
 }

@@ -23,20 +23,20 @@
                 </div>
 
                 <ul class="sidebar_nav">
-                    <li class="sidebar_item active" style="width: 100%;">
+                    <li class="sidebar_item " style="width: 100%;">
                         <a href="dashboard.php" class="sidebar_link"> <img src="img/1. overview.svg" alt="icon">Overview</a>
                     </li>
                     <li class="sidebar_item">
                         <a href="candidat.php" class="sidebar_link"> <img src="img/agents.svg" alt="icon">Candidat</a>
                     </li>
-                    <li class="sidebar_item">
-                        <a href="offre.php" class="sidebar_link"> <img src="img/task.svg" alt="icon">Offre</a>
+                    <li class="sidebar_item ">
+                        <a href="offreCrud.php" class="sidebar_link"> <img src="img/task.svg" alt="icon">Offre</a>
                     </li>
-                    <li class="sidebar_item">
+                    <li class="sidebar_item active">
                         <a href="contact.php" class="sidebar_link"><img src="img/agent.svg" alt="icon">Contact</a>
                     </li>
                     <li class="sidebar_item">
-                        <a href="#" class="sidebar_link"><img src="img/articles.svg" alt="icon">Articles</a>
+                        <a href="offre.php" class="sidebar_link"><img src="img/articles.svg" alt="icon">Offre To Apply</a>
                     </li>
 
                 </ul>
@@ -92,7 +92,13 @@
                             <div class="dropdown-menu dropdown-menu-end position-absolute">
                                 <a class="dropdown-item" href="#">Profile</a>
                                 <a class="dropdown-item" href="#">Account Setting</a>
-                                <a class="dropdown-item" href="/PeoplePerTask/project/pages/index.html">Log out</a>
+                                <?php 
+                                if(!isset($_SESSION['roleUser'])){
+                                ?>
+                                <a class="dropdown-item" href="../login.php">Login</a>
+                                <?php }else{ ?>
+                                <a class="dropdown-item" href="../Controller/controller.php?logout=ok">Log out</a>
+                                <?php } ?>
                             </div>
                         </li>
                     </ul>

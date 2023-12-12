@@ -45,7 +45,7 @@ $RoleUsers = $role->GetRoles();
                         <a href="contact.php" class="sidebar_link"><img src="img/agent.svg" alt="icon">Contact</a>
                     </li>
                     <li class="sidebar_item">
-                        <a href="#" class="sidebar_link"><img src="img/articles.svg" alt="icon">Articles</a>
+                        <a href="offre.php" class="sidebar_link"><img src="img/articles.svg" alt="icon">Offre To Apply</a>
                     </li>
 
                 </ul>
@@ -101,7 +101,13 @@ $RoleUsers = $role->GetRoles();
                             <div class="dropdown-menu dropdown-menu-end position-absolute">
                                 <a class="dropdown-item" href="#">Profile</a>
                                 <a class="dropdown-item" href="#">Account Setting</a>
-                                <a class="dropdown-item" href="/PeoplePerTask/project/pages/index.html">Log out</a>
+                                <?php 
+                                if(!isset($_SESSION['roleUser'])){
+                                ?>
+                                <a class="dropdown-item" href="../login.php">Login</a>
+                                <?php }else{ ?>
+                                <a class="dropdown-item" href="../Controller/controller.php?logout=ok">Log out</a>
+                                <?php } ?>
                             </div>
                         </li>
                     </ul>
