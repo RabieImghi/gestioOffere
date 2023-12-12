@@ -27,10 +27,14 @@ if(isset($_GET['deletUser'])){
 }
 if(isset($_POST['addOffer'])){
     extract($_POST);
-    $result = $jobs->AddJobs($title,$description,$entreprise,$location,$IsActive,$approve);
-    if($result) header('location: ../dashboard/offreCrud.php');
-
-
+    $currentDateTime = date("Y_m_d_H_i_s");
+    $targetDir = "../uploads/"; 
+    $imageName=$currentDateTime. basename($_FILES["photo"]["name"]);
+    $targetFile = $targetDir.$imageName;
+    if (move_uploaded_file($_FILES["photo"]["tmp_name"], $targetFile)) {
+        $result = $jobs->AddJobs($title,$description,$entreprise,$location,$IsActive,$approve,$imageName);
+        if($result) header('location: ../dashboard/offreCrud.php');
+    } 
 }
 if(isset($_GET['deletJob'])){
     $idJob=$_GET['deletJob'];
@@ -59,7 +63,14 @@ if(isset($_GET['applyOffre'])){
     $res = $ApplyOnline->applyOffre($idJob,$idUser);
     if($res) echo "ok";
     else echo "non";
-
-    // if($res) echo "You have Apply this Offer with Succes";
-    // else echo "Errore ! You have Already Apply this Offer";
+}
+if(isset($_POST["aprouve"])){
+    $idOffer= $_POST["aprouve"];
+    $result=$ApplyOnline->AprouvOffer($idOffer,1);
+    if($result) header('location:../dashboard/offre.php');
+}
+if(isset($_POST["decline"])){
+    $idOffer= $_POST["decline"];
+    $result=$ApplyOnline->AprouvOffer($idOffer,2);
+    if($result) header('location:../dashboard/offre.php');
 }

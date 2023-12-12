@@ -141,7 +141,7 @@ $tempAprouveTable=[
                         <tr class="freelancer">
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt=""
+                                    <img src="../uploads/<?=$job['imageURL']?>" alt=""
                                         style="width: 45px; height: 45px" class="rounded-circle" />
                                 </div>
                             </td>
@@ -247,7 +247,12 @@ $tempAprouveTable=[
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="forms" method='POST' action="../Controller/controller.php">
+                            <form id="forms" method='POST' enctype="multipart/form-data" action="../Controller/controller.php">
+                                <div class="row mb-4">
+                                    <div class="">
+                                        <input  type="file" name='photo'   class="form-control first_name" >
+                                    </div>
+                                </div>
                                 <div class="row mb-4">
                                     <div class="">
                                         <input placeholder="Title" type="text" name='title'   class="form-control first_name" >

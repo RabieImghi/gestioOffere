@@ -5,18 +5,10 @@ require "Class/Job.php";
 if(isset($_SESSION['roleUser']) && $_SESSION['roleUser']==1){
 	header("locaton:dashboard/dashboard.php");
 }
-$jobs=new Job();
+$jobs = new Job();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<script>
-	Swal.fire({
-  title: 'Error!',
-  text: 'Do you want to continue',
-  icon: 'error',
-  confirmButtonText: 'Cool'
-})
-</script>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,10 +44,10 @@ $jobs=new Job();
 				<div class="collapse navbar-collapse" id="collapsibleNavbar">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item active">
-							<a class="nav-link" href="#">Home</a>
+							<a class="nav-link" href="index.php">Home</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Features</a>
+							<a class="nav-link" href="not.php">Notification</a>
 						</li>
 
 						<li class="nav-item dropdown">
@@ -90,31 +82,32 @@ $jobs=new Job();
 		<h2>Find Your Dream Job</h2>
 		<form class="form-inline">
 			<div class="form-group mb-2">
-				<input type="text" name="keywords" placeholder="Keywords">
-
-
+				<input type="text" id='title' onkeyup="search('title')" name="keywords" placeholder="Keywords">
 			</div>
 			<div class="form-group mx-sm-3 mb-2">
-				<input type="text" name="location" placeholder="Location">
+				<input type="text" id='location' onkeyup="search('location')" name="company" placeholder="Location">
 			</div>
 			<div class="form-group mx-sm-3 mb-2">
-				<input type="text" name="company" placeholder="Company">
+				<input type="text"  id='entreprise' onkeyup="search('entreprise')" name="location" placeholder="Company">
 			</div>
-			<button type="submit" class="btn btn-primary mb-2">Search</button>
+			<!-- <button type="submit" class="btn btn-primary mb-2">Search</button> -->
 		</form>
+		<script>
+			
+		</script>
 	</section>
 
 	<!--------------------------  card  --------------------->
 	<section class="light">
 		<h2 class="text-center py-3">Latest Job Listings</h2>
-		<div class="container py-2">
+		<div class="container py-2" id="articles">
 			<?php
 			$listJobs = $jobs->GetJobs(1);
 			foreach($listJobs as $job){
 			?>
 			<article class="postcard light green">
 				<a class="postcard__img_link" href="#">
-					<img class="postcard__img" src="https://picsum.photos/300/300" alt="Image Title" />
+					<img class="postcard__img" src="uploads/<?=$job['imageURL']?>" alt="Image Title" />
 				</a>
 				<div class="postcard__text t-dark">
 					<h3 class="postcard__title green"><a href="#"><?=$job["title"]?></a></h3>
@@ -163,7 +156,6 @@ $jobs=new Job();
 			var xml = new XMLHttpRequest();
 			xml.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					// alert(xml.responseText)
 					if(xml.responseText=="ok"){
 						Swal.fire({
 							position: "top-end",
@@ -184,6 +176,18 @@ $jobs=new Job();
 			};
 			let url = "Controller/controller.php?applyOffre="+jobid.value;
 			xml.open("GET", url, true);
+			xml.send();
+		}
+		function search(typeSearch){
+			let input = document.getElementById(typeSearch);
+			let url = "Controller/search.php?value="+input.value+"&type="+typeSearch;
+			let xml = new XMLHttpRequest();
+			xml.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					document.getElementById("articles").innerHTML=xml.responseText;
+				}
+			};
+			xml.open("POST", url, true);
 			xml.send();
 		}
 	</script>   
