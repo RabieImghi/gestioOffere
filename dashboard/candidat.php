@@ -32,14 +32,14 @@ $RoleUsers = $role->GetRoles();
                 </div>
 
                 <ul class="sidebar_nav">
-                    <li class="sidebar_item active" style="width: 100%;">
+                    <li class="sidebar_item ">
                         <a href="dashboard.php" class="sidebar_link"> <img src="img/1. overview.svg" alt="icon">Overview</a>
                     </li>
-                    <li class="sidebar_item">
+                    <li class="sidebar_item active" style="width: 100%;">
                         <a href="candidat.php" class="sidebar_link"> <img src="img/agents.svg" alt="icon">Candidat</a>
                     </li>
                     <li class="sidebar_item">
-                        <a href="offre.php" class="sidebar_link"> <img src="img/task.svg" alt="icon">Offre</a>
+                        <a href="offreCrud.php" class="sidebar_link"> <img src="img/task.svg" alt="icon">Offre</a>
                     </li>
                     <li class="sidebar_item">
                         <a href="contact.php" class="sidebar_link"><img src="img/agent.svg" alt="icon">Contact</a>
@@ -149,7 +149,7 @@ $RoleUsers = $role->GetRoles();
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form id="forms" method='POST' action="../Controller/controller.php">
+                                            <form  method='POST' action="../Controller/controller.php">
                                                 <div class="row mb-4">
                                                     <div class="">
                                                         <label class="form-label" >First name</label>
@@ -175,8 +175,8 @@ $RoleUsers = $role->GetRoles();
                                                 </div>
                                                 <input type="hidden" name="id_user" value='<?=$users['userID']?>'>
                                                 <div class="d-flex w-100 justify-content-center">
-                                                    <input type="submit" name='updateUser' value='Save Edit' class="btn btn-success  mb-4 me-4">
-                                                    <button class="btn btn-danger btn-block mb-4 " data-bs-dismiss="modal">Annuler</button>
+                                                    <button type="submit" name='updateUser' class="btn btn-success  mb-4 me-4">Save Edit</button>
+                                                    <button class="btn btn-danger " data-bs-dismiss="modal">Annuler</button>
                                                 </div>
                                             </form>
                                         </div>
