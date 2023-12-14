@@ -12,7 +12,7 @@ if(isset($_GET['value'])){
 ?>
     <article class="postcard light green">
         <a class="postcard__img_link" href="#">
-            <img class="postcard__img" src="https://picsum.photos/300/300" alt="Image Title" />
+            <img class="postcard__img" src="uploads/<?=$job['imageURL']?>" alt="Image Title" />
         </a>
         <div class="postcard__text t-dark">
             <h3 class="postcard__title green"><a href="#"><?=$job["title"]?></a></h3>
