@@ -129,7 +129,7 @@ $jobs = new Job();
 								if(isset($_SESSION['idUser'])){
 							?>
 								<form >
-									<button type='button' name='applyOffre' id='applyOffre<?=$job['jobID']?>' onclick="addOffer(<?=$job['jobID']?>)" value='<?=$_SESSION['idUser']?>/<?=$job["jobID"]?>' class="btn btn-success">Add Offer</button>   
+									<button type='button' name='applyOffre'  onclick="addOffer(<?=$job['jobID']?>)" class="btn btn-success">Add Offer</button>   
 								</form>    
 								
 								<?php
@@ -151,8 +151,7 @@ $jobs = new Job();
 		</div>
 	</section>
 	<script>
-		function addOffer(i){
-			var jobid = document.getElementById('applyOffre'+i);
+		function addOffer(idJob){
 			var xml = new XMLHttpRequest();
 			xml.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -174,7 +173,7 @@ $jobs = new Job();
 					
 				}
 			};
-			let url = "Controller/controller.php?applyOffre="+jobid.value;
+			let url = "Controller/controller.php?applyOffre="+idJob;
 			xml.open("GET", url, true);
 			xml.send();
 		}
