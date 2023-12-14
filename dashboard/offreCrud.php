@@ -1,8 +1,7 @@
 <?php
 session_start();
 require_once "../Class/Job.php";
-$jobs = new Job();
-$listJobs = $jobs->GetJobs(3);
+$listJobs = Job::GetJobs(3);
 $tempActiveTable=[
     0=>"In Active",
     1=>"Active"
@@ -274,18 +273,18 @@ $tempAprouveTable=[
                                     </div>
                                 </div>
                                 <div class="mb-4">
-                                    <label class="form-label" >Role User</label>
+                                    <label class="form-label" >is active</label>
                                     <select name="IsActive" class="form-control email" id="">
-                                        <option value="0">Is Active</option>
-                                        <option value="1">Inactive</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">non active</option>
                                        
                                     </select>
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" >Role User</label>
                                     <select name="approve" class="form-control email" id="">
-                                        <option value="0">Is Approve</option>
-                                        <option value="1">Inapprove</option>
+                                        <option value="1">Approve</option>
+                                        <option value="0">Non approve</option>
                                     </select>
                                 </div>
                                 <div class="d-flex w-100 justify-content-center">

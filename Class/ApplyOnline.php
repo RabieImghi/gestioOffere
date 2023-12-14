@@ -2,7 +2,7 @@
 require_once "Connection.php";
 require_once "Job.php";
 class ApplyOnline {
-    public function applyOffre($idJob,$idUser){
+    public static function applyOffre($idJob,$idUser){
         $conn = Connection::getConnection();
         $stmt = $conn->prepare("SELECT * FROM applyonline WHERE userID=? AND jobID =?");
         $stmt->bindParam(1, $idUser);
@@ -23,7 +23,7 @@ class ApplyOnline {
         }
         else return false;
     }
-    public function getApplyOnline($isAprouve){
+    public static function getApplyOnline($isAprouve){
         $conn = Connection::getConnection();
         $stmt=$conn->prepare("SELECT * FROM users NATURAL JOIN applyonline NATURAL JOIN jobs WHERE Status=?");
         $stmt->bindParam(1,$isAprouve);
@@ -33,7 +33,7 @@ class ApplyOnline {
         return $result;
     }
 
-    public function AprouvOffer($idOffer,$test){
+    public static function AprouvOffer($idOffer,$test){
         $conn = Connection::getConnection();
         if($test==1){
             $stmt=$conn->prepare("UPDATE applyonline SET Status=?, notification	=? WHERE ApplyOnlineID=?");
@@ -54,7 +54,7 @@ class ApplyOnline {
         }
         return true;
     }
-    public function DeclineOffer($idOffer){
+    public static function DeclineOffer($idOffer){
         $conn = Connection::getConnection();
         $stmt=$conn->prepare("UPDATE applyonline SET Status=?, notification	=? WHERE ApplyOnlineID=?");
         $notification=1;
@@ -65,7 +65,7 @@ class ApplyOnline {
         $result=$stmt->execute();
         if($result) return true;
     }
-    public function getNotefication($idUser){
+    public static function getNotefication($idUser){
         $conn = Connection::getConnection();
         $stmt=$conn->prepare("SELECT * FROM users NATURAL JOIN applyonline NATURAL JOIN jobs WHERE userID =?");
         $stmt->execute([$idUser]);

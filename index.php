@@ -5,7 +5,6 @@ require "Class/Job.php";
 if(isset($_SESSION['roleUser']) && $_SESSION['roleUser']==1){
 	header("locaton:dashboard/dashboard.php");
 }
-$jobs = new Job();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,7 +101,7 @@ $jobs = new Job();
 		<h2 class="text-center py-3">Latest Job Listings</h2>
 		<div class="container py-2" id="articles">
 			<?php
-			$listJobs = $jobs->GetJobs(1);
+			$listJobs = Job::GetJobs(1);
 			foreach($listJobs as $job){
 			?>
 			<article class="postcard light green">

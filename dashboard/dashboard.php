@@ -123,7 +123,7 @@ $jobs = new Job();
                                         <div class="mt-4">
                                             <h3><strong>
                                                 <?php
-                                                $res=$jobs->JobCout();
+                                                $res=Job::JobCout();
                                                 echo $res["totalJobs"];
                                                 ?>
                                             </strong></h3>
@@ -147,7 +147,7 @@ $jobs = new Job();
                                         <div class="mt-4">
                                             <h3><strong>
                                             <?php
-                                                $res=$jobs->JobCoutActiveInactive(1);
+                                                $res=Job::JobCoutActiveInactive(1);
                                                 echo $res["totalJobsActInact"];
                                                 ?>
                                             </strong></h3>
@@ -171,7 +171,7 @@ $jobs = new Job();
                                         <div class="mt-4">
                                             <h3><strong>
                                             <?php
-                                                $res=$jobs->JobCoutActiveInactive(0);
+                                                $res=Job::JobCoutActiveInactive(0);
                                                 echo $res["totalJobsActInact"];
                                                 ?>
                                             </strong></h3>
@@ -196,7 +196,7 @@ $jobs = new Job();
                                         <div class="mt-4">
                                             <h3><strong>
                                             <?php
-                                                $res=$jobs->Jobapprove(1);
+                                                $res=Job::Jobapprove(1);
                                                 echo $res["Jobapprove"];
                                                 ?>
                                             </strong></h3>

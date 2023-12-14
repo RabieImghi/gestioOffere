@@ -4,7 +4,6 @@ require "Class/ApplyOnline.php";
 if(isset($_SESSION['roleUser']) && $_SESSION['roleUser']==1){
 	header("locaton:dashboard/dashboard.php");
 }
-$jobs = new ApplyOnline();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +82,7 @@ $jobs = new ApplyOnline();
         <div class='m-4 p-4'>
             <?php
             if(isset($_SESSION['idUser'])){
-                $jobsNotif=$jobs->getNotefication($_SESSION['idUser']);
+                $jobsNotif=ApplyOnline::getNotefication($_SESSION['idUser']);
                 foreach($jobsNotif as $notif){
                     if($notif['notification']==1){
                 ?>

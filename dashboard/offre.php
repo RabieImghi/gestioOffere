@@ -2,8 +2,7 @@
 session_start();
 require_once "../Class/Job.php";
 require_once "../Class/ApplyOnline.php";
-$jobs = new ApplyOnline();
-$listApplyOnline = $jobs->getApplyOnline(0);
+$listApplyOnline = ApplyOnline::getApplyOnline(0);
 
 ?>
 <!DOCTYPE html>

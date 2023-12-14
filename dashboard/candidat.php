@@ -4,8 +4,8 @@ require_once "../Class/User.php";
 require_once "../Class/RoleUsers.php";
 $role = new RoleUsers();
 $user = new User();
-$listUsers = $user->GetUsers();
-$RoleUsers = $role->GetRoles();
+$listUsers = User::GetUsers();
+$RoleUsers = RoleUsers::GetRoles();
 ?>
 <!DOCTYPE html>
 <html lang="en">
